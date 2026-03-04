@@ -7,6 +7,8 @@
 #ifndef CINA226_H
 #define CINA226_H
 
+#include <string.h>
+#include <stdint.h>
 #include "CI2cDevice.h"
 
 /**
@@ -26,6 +28,8 @@
  *   Bus Voltage LSB   : 1.25 mV
  *   Power LSB         : 25 × Current_LSB
  */
+
+
 class CINA226 : public CI2cDevice {
 private:
     float m_currentLsb; // Einheit: A/Bit
