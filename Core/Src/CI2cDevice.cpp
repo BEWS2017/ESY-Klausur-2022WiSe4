@@ -38,6 +38,32 @@ bool CI2cDevice::read(uint8_t *data, uint16_t length) {
 	return (status == HAL_OK);
 }
 
+// DMA but without callbackfunctions
+bool CI2cDevice::writeDMA(uint8_t* data, uint16_t length){
+	HAL_StatusTypeDef status;
+	uint32_t start = HAL_GetTick();
+	if(data == nullptr || length == 0){
+		return false;
+	}
+	status = HAL_I2C_Master_Transmit_DMA(m_hi2c, m_deviceAddress,data,length);
+	if(status != HAL_OK){
+			return false;
+		}
+	//wait to finish with timeout
+	while(HAL_I2C_GetState(m_hi2c) != HAL_I2C_STATE_READY){
+		if(HAL_GetTick() - start > I2C_TIMEOUT){
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool CI2cDevice::readDMA(uint8_t* data, uint16_t length){
+
+	return true;
+}
+
 bool CI2cDevice::writeRegister(uint8_t regAddress, uint16_t value) {
 	uint8_t buff[3];
 	buff[0] = regAddress;

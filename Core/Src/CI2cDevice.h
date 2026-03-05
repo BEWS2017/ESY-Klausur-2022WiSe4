@@ -26,6 +26,11 @@ protected:
      */
     bool write(uint8_t* data, uint16_t length);
 
+    /*
+     * Same as above but with DMA
+     */
+    bool writeDMA(uint8_t* data, uint16_t length);
+
     /**
      * Liest "length" Bytes vom I2C-Slave.
      * "data" zeigt auf den Puffer, in den gelesen wird.
@@ -33,6 +38,11 @@ protected:
      * false sonst.
      */
     bool read(uint8_t* data, uint16_t length);
+
+    /*
+     * Same as above but with DMA
+     */
+    bool readDMA(uint8_t* data, uint16_t length);
 
     /**
      * Schreibt in das Register mit der Adresse "regAddress"
